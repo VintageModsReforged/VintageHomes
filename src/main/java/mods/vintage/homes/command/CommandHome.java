@@ -37,7 +37,7 @@ public class CommandHome extends VintageCommand {
             VintageHomesWorldStorage storage = VintageHomesWorldStorage.get(server);
             String playerName = playerSP.username;
 
-            int[] homeData = storage.tag.getIntArray(playerName);
+            int[] homeData = storage.homesTag.getIntArray(playerName);
             if (homeData.length <= 0) {
                 sender.sendChatToPlayer(FormattedTranslator.RED.format("message.command.home.set.home"));
             } else {

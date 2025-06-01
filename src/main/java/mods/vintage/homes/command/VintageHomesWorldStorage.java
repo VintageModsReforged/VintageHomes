@@ -9,7 +9,9 @@ import net.minecraft.world.storage.MapStorage;
 
 public class VintageHomesWorldStorage extends WorldSavedData {
     private static final String DATA = References.ID + "_storage";
-    public NBTTagCompound tag = new NBTTagCompound();
+
+    public NBTTagCompound homesTag = new NBTTagCompound();
+    public NBTTagCompound warpsTag = new NBTTagCompound();
 
     public VintageHomesWorldStorage() {
         super(DATA);
@@ -21,13 +23,18 @@ public class VintageHomesWorldStorage extends WorldSavedData {
 
     @Override
     public void readFromNBT(NBTTagCompound tag) {
-
-        this.tag = tag.getCompoundTag("homes");
+        if (tag.hasKey("homes")) {
+            this.homesTag = tag.getCompoundTag("homes");
+        }
+        if (tag.hasKey("warps")) {
+            this.warpsTag = tag.getCompoundTag("warps");
+        }
     }
 
     @Override
     public void writeToNBT(NBTTagCompound tag) {
-        tag.setCompoundTag("homes", this.tag);
+        tag.setTag("homes", this.homesTag);
+        tag.setTag("warps", this.warpsTag);
     }
 
     // We want our homes to be global per player, so we should bind them to the overworld,

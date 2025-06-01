@@ -23,7 +23,6 @@ public class HomeTeleporter extends Teleporter {
             EntityPlayerMP player = (EntityPlayerMP) entity;
             MinecraftServer server = MinecraftServer.getServer();
 
-            // WorldSavedData for current world
             VintageHomesWorldStorage storage = VintageHomesWorldStorage.get(server);
             String playerName = player.username;
 
@@ -35,7 +34,6 @@ public class HomeTeleporter extends Teleporter {
             int[] data = storage.tag.getIntArray(playerName);
             if (data.length < 4) return;
 
-            int destDimId = data[0];
             int posX = data[1];
             int posY = data[2];
             int posZ = data[3];

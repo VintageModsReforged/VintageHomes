@@ -1,5 +1,6 @@
 package mods.vintage.homes.command;
 
+import mods.vintage.homes.VintageHomes;
 import net.minecraft.command.CommandBase;
 import net.minecraft.command.ICommand;
 
@@ -7,7 +8,7 @@ public abstract class VintageCommand extends CommandBase {
 
     @Override
     public int getRequiredPermissionLevel() {
-        return 2;
+        return VintageHomes.commandPermissionLevel;
     }
 
     @Override

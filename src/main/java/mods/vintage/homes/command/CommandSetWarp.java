@@ -6,25 +6,26 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.server.MinecraftServer;
 
-public class CommandSetHome extends VintageCommand {
+public class CommandSetWarp extends VintageCommand {
 
     @Override
     public String getCommandName() {
-        return "sethome";
+        return "setwarp";
     }
 
     @Override
     public String getCommandUsage(ICommandSender iCommandSender) {
-        return FormattedTranslator.GOLD.format("message.command.sethome.usage", FormattedTranslator.AQUA.literal("/sethome"));
+        return "/setwarp <NAME>";
     }
 
     @Override
     public void processCommand(ICommandSender sender, String[] args) {
         if(sender instanceof EntityPlayer | sender instanceof EntityPlayerMP) {
-            if (args.length == 0) {
+            if (args.length == 1) { // argument is provided
                 int x = (int) ((EntityPlayer) sender).posX;
                 int y = (int) ((EntityPlayer) sender).posY;
                 int z = (int) ((EntityPlayer) sender).posZ;
+
                 EntityPlayer senderP = (EntityPlayer) sender;
                 MinecraftServer server = MinecraftServer.getServer();
 
@@ -36,7 +37,7 @@ public class CommandSetHome extends VintageCommand {
                 arrayToStore[2] = y;
                 arrayToStore[3] = z;
 
-                sd.homesTag.setIntArray(senderP.username, arrayToStore);
+                sd.warpsTag.setIntArray(args[0], arrayToStore);
                 sd.markDirty();
                 ((EntityPlayer) sender).addChatMessage(FormattedTranslator.GREEN.format("message.command.sethome.success"));
             } else {

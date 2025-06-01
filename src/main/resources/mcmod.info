@@ -1,0 +1,9 @@
+[
+  {
+    "modid": "VintageHomes",
+    "name": "Vintage: Homes",
+    "description": "Quick home teleportation!",
+    "version": "1.5.2-1.0.0",
+    "authors": ["CrossVas"]
+  }
+]

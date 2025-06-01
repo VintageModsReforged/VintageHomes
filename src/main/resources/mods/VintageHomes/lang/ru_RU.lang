@@ -1,0 +1,21 @@
+message.player.login=Этот сервер использует %s. Спасибо!
+message.player.usage=Вы можете использовать %s и %s с установленным модом
+
+message.command.home.allowed=Только игроки могут использовать эту команду!
+message.command.home.success=Телепортация домой!
+message.command.home.set.home=Пожалуйста, сначала установите точку дома!
+message.command.home.usage=Использование: %s
+
+message.command.sethome.success=Дом установлен
+message.command.sethome.warning=Команда %s не принимает аргументов!
+message.command.sethome.usage=Используйте %s, чтобы установить точку дома
+
+message.command.tpd.allowed=Только игроки могут использовать эту команду!
+message.command.tpd.info1=Вы находитесь в измерении с ID: %s
+message.command.tpd.info2=Чтобы телепортироваться в измерение, используйте %s (ID измерения)
+message.command.tpd.warning=Слишком много аргументов! Правильное использование: %s (ID измерения)
+message.command.tpd.warning1=Недопустимый ID измерения.
+message.command.tpd.warning2=Вы уже находитесь в этом измерении!
+message.command.tpd.warning3=Целевое измерение не загружено!
+message.command.tpd.warning4=Не удалось найти безопасное место для телепортации!
+message.command.tpd.usage=Используйте %s (ID измерения) или %s

@@ -19,3 +19,16 @@ message.command.tpd.warning2=Вы уже находитесь в этом изм
 message.command.tpd.warning3=Целевое измерение не загружено!
 message.command.tpd.warning4=Не удалось найти безопасное место для телепортации!
 message.command.tpd.usage=Используйте %s (ID измерения) или %s
+
+message.command.warp.allowed=Только игроки могут использовать эту команду!
+message.command.warp.usage=Использование: %s
+message.command.warp.usage.add=Использование: %s
+message.command.warp.success.add=Варп %s добавлен в список!
+message.command.warp.list=Варпы: %s
+message.command.warp.list.none=Варпы не заданы.
+message.command.warp.usage.remove=Использование: %s
+message.command.warp.success.remove=Варп %s удалён!
+message.command.warp.fail.remove=Варп %s не существует!
+message.command.warp.success=Телепортирован к %s
+message.command.warp.fail=Данные варпа недействительны.
+message.command.warp.none=Варп %s не найден.

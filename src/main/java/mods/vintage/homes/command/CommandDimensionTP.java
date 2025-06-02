@@ -1,7 +1,7 @@
 package mods.vintage.homes.command;
 
 import mods.vintage.core.platform.lang.FormattedTranslator;
-import mods.vintage.homes.utils.HomeTeleporter;
+import mods.vintage.homes.utils.CommonTeleporter;
 import net.minecraft.block.Block;
 import net.minecraft.command.CommandException;
 import net.minecraft.command.ICommandSender;
@@ -110,7 +110,7 @@ public class CommandDimensionTP extends VintageCommand {
             throw new CommandException("message.command.tpd.warning4");
         }
 
-        MinecraftServer.getServer().getConfigurationManager().transferPlayerToDimension(player, id, new HomeTeleporter(targetWorld, false));
+        MinecraftServer.getServer().getConfigurationManager().transferPlayerToDimension(player, id, new CommonTeleporter(targetWorld, CommonTeleporter.Type.HOME, false));
         player.setPositionAndUpdate(x + 0.5, y, z + 0.5);
     }
 

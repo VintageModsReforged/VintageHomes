@@ -6,10 +6,7 @@ import cpw.mods.fml.common.registry.GameRegistry;
 import mods.vintage.core.helpers.ConfigHelper;
 import mods.vintage.core.platform.lang.ILangProvider;
 import mods.vintage.core.platform.lang.LangManager;
-import mods.vintage.homes.command.CommandHome;
-import mods.vintage.homes.command.CommandSetHome;
-import mods.vintage.homes.command.CommandDimensionTP;
-import mods.vintage.homes.command.CommandSetWarp;
+import mods.vintage.homes.command.*;
 import mods.vintage.homes.utils.PlayerTracker;
 import net.minecraftforge.common.Configuration;
 
@@ -38,7 +35,8 @@ public class VintageHomes implements ILangProvider {
         e.registerServerCommand(new CommandHome());
         e.registerServerCommand(new CommandSetHome());
         e.registerServerCommand(new CommandDimensionTP());
-        e.registerServerCommand(new CommandSetWarp());
+//        e.registerServerCommand(new CommandSetWarp());
+        e.registerServerCommand(new CommandWarp());
     }
 
     @Override

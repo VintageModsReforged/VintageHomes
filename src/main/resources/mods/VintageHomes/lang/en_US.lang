@@ -19,3 +19,16 @@ message.command.tpd.warning2=You are already in that dimension!
 message.command.tpd.warning3=Target dimension is not loaded!
 message.command.tpd.warning4=Unable to find safe teleport location!
 message.command.tpd.usage=Use %s (dimension ID) or %s
+
+message.command.warp.allowed=Only players can use this command!
+message.command.warp.usage=Usage: %s
+message.command.warp.usage.add=Usage: %s
+message.command.warp.success.add=Warp %s has been added to the list!
+message.command.warp.list=Warps: %s
+message.command.warp.list.none=No warps set.
+message.command.warp.usage.remove=Usage: %s
+message.command.warp.success.remove=Warp %s removed!
+message.command.warp.fail.remove=Warp %s does not exist!
+message.command.warp.success=Warped to %s
+message.command.warp.fail=Warp data is invalid.
+message.command.warp.none=Warp %s not found.

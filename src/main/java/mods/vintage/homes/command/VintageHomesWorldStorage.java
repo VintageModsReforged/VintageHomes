@@ -1,11 +1,17 @@
 package mods.vintage.homes.command;
 
 import mods.vintage.homes.References;
+import net.minecraft.nbt.NBTBase;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldSavedData;
 import net.minecraft.world.storage.MapStorage;
+
+import java.lang.reflect.Field;
+import java.util.Collections;
+import java.util.Map;
+import java.util.Set;
 
 public class VintageHomesWorldStorage extends WorldSavedData {
     private static final String DATA = References.ID + "_storage";
@@ -48,5 +54,18 @@ public class VintageHomesWorldStorage extends WorldSavedData {
             storage.setData(DATA, vintageStorage);
         }
         return vintageStorage;
+    }
+
+    @SuppressWarnings("unchecked")
+    public static Set<String> getWarpNames(NBTTagCompound warpsTag) {
+        try {
+            Field mapField = NBTTagCompound.class.getDeclaredField("tagMap");
+            mapField.setAccessible(true);
+            Map<String, NBTBase> tagMap = (Map<String, NBTBase>) mapField.get(warpsTag);
+            return tagMap.keySet();
+        } catch (Exception e) {
+            e.printStackTrace();
+            return Collections.emptySet();
+        }
     }
 }

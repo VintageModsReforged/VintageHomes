@@ -1,7 +1,7 @@
 package mods.vintage.homes.command;
 
 import mods.vintage.core.platform.lang.FormattedTranslator;
-import mods.vintage.homes.utils.HomeTeleporter;
+import mods.vintage.homes.utils.CommonTeleporter;
 import net.minecraft.command.ICommandSender;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
@@ -48,7 +48,7 @@ public class CommandHome extends VintageCommand {
 
                 WorldServer destWorld = server.worldServerForDimension(destDimId);
                 if(!(destWorld == server.worldServerForDimension(dimID))){
-                    server.getConfigurationManager().transferPlayerToDimension(playerMP, destDimId, new HomeTeleporter(destWorld, true));
+                    server.getConfigurationManager().transferPlayerToDimension(playerMP, destDimId, new CommonTeleporter(destWorld, CommonTeleporter.Type.HOME, true));
                 }
                 playerMP.setPositionAndUpdate(xPos + 0.5, yPos, zPos + 0.5);
                 playerSP.setPositionAndUpdate(xPos + 0.5, yPos, zPos + 0.5);

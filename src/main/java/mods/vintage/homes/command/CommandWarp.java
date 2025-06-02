@@ -119,9 +119,6 @@ public class CommandWarp extends VintageCommand {
         Set<String> warps = VintageHomesWorldStorage.getWarpNames(storage.warpsTag);
         List warpList = getListOfStringsMatchingLastWord(args, warps.toArray(new String[0]));
         if (args.length == 1 && "warp".equalsIgnoreCase(getCommandName())) {
-            warpList.add("add");
-            warpList.add("remove");
-            warpList.add("list");
             return warpList;
         } else if (args.length == 2 && "remove".equalsIgnoreCase(args[0])) {
             return warpList;

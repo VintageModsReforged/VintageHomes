@@ -59,10 +59,18 @@ public class VintageHomesWorldStorage extends WorldSavedData {
     @SuppressWarnings("unchecked")
     public static Set<String> getWarpNames(NBTTagCompound warpsTag) {
         try {
-            Field mapField = NBTTagCompound.class.getDeclaredField("tagMap");
+            Field mapField;
+            try {
+                mapField = NBTTagCompound.class.getDeclaredField("tagMap");
+            } catch (NoSuchFieldException e) {
+                mapField = NBTTagCompound.class.getDeclaredField("field_74784_a");
+            }
             mapField.setAccessible(true);
             Map<String, NBTBase> tagMap = (Map<String, NBTBase>) mapField.get(warpsTag);
-            return tagMap.keySet();
+            if (tagMap != null) {
+                return tagMap.keySet();
+            }
+            return Collections.emptySet();
         } catch (Exception e) {
             e.printStackTrace();
             return Collections.emptySet();

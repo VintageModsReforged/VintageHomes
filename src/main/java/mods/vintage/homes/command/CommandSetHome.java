@@ -20,7 +20,7 @@ public class CommandSetHome extends VintageCommand {
 
     @Override
     public void processCommand(ICommandSender sender, String[] args) {
-        if(sender instanceof EntityPlayer | sender instanceof EntityPlayerMP) {
+        if (sender instanceof EntityPlayer | sender instanceof EntityPlayerMP) {
             if (args.length == 0) {
                 int x = (int) ((EntityPlayer) sender).posX;
                 int y = (int) ((EntityPlayer) sender).posY;
@@ -30,7 +30,7 @@ public class CommandSetHome extends VintageCommand {
 
                 VintageHomesWorldStorage sd = VintageHomesWorldStorage.get(server);
 
-                int[] arrayToStore = {0,0,0,0};
+                int[] arrayToStore = {0, 0, 0, 0};
                 arrayToStore[0] = senderP.worldObj.provider.dimensionId;
                 arrayToStore[1] = x;
                 arrayToStore[2] = y;

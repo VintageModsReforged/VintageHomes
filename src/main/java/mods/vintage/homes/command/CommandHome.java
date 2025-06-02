@@ -47,7 +47,7 @@ public class CommandHome extends VintageCommand {
                 int zPos = homeData[3];
 
                 WorldServer destWorld = server.worldServerForDimension(destDimId);
-                if(!(destWorld == server.worldServerForDimension(dimID))){
+                if (!(destWorld == server.worldServerForDimension(dimID))) {
                     server.getConfigurationManager().transferPlayerToDimension(playerMP, destDimId, new CommonTeleporter(destWorld, CommonTeleporter.Type.HOME, true));
                 }
                 playerMP.setPositionAndUpdate(xPos + 0.5, yPos, zPos + 0.5);

@@ -97,8 +97,8 @@ public class CommandWarp extends VintageCommand {
                     int yPos = pos[2];
                     int zPos = pos[3];
                     WorldServer destWorld = server.worldServerForDimension(dim);
-                    if(!(destWorld == server.worldServerForDimension(dimID))){
-                        server.getConfigurationManager().transferPlayerToDimension(player, dim, new CommonTeleporter(destWorld, CommonTeleporter.Type.HOME, true));
+                    if (!(destWorld == server.worldServerForDimension(dimID))) {
+                        server.getConfigurationManager().transferPlayerToDimension(player, dim, new CommonTeleporter(destWorld, CommonTeleporter.Type.WARP, sub, true));
                     }
                     player.setPositionAndUpdate(xPos + 0.5, yPos, zPos + 0.5);
                     playerSP.setPositionAndUpdate(xPos + 0.5, yPos, zPos + 0.5);

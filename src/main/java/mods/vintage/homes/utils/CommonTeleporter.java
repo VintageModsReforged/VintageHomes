@@ -67,5 +67,5 @@ public class CommonTeleporter extends Teleporter {
         return false;
     }
 
-    public enum Type { HOME, WARP }
+    public enum Type {HOME, WARP}
 }

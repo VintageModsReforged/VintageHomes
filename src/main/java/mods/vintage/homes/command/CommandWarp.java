@@ -1,6 +1,6 @@
 package mods.vintage.homes.command;
 
-import mods.vintage.core.platform.lang.FormattedTranslator;
+import mods.vintage.core.platform.lang.Translator;
 import mods.vintage.homes.utils.CommonTeleporter;
 import net.minecraft.command.ICommandSender;
 import net.minecraft.entity.player.EntityPlayer;
@@ -28,14 +28,14 @@ public class CommandWarp extends VintageCommand {
     @Override
     public void processCommand(ICommandSender sender, String[] args) {
         if (!(sender instanceof EntityPlayerMP)) {
-            sender.sendChatToPlayer(FormattedTranslator.RED.format("message.command.warp.allowed"));
+            sender.sendChatToPlayer(Translator.RED.format("message.command.warp.allowed"));
             return;
         }
 
         EntityPlayerMP player = (EntityPlayerMP) sender;
 
         if (args.length == 0) {
-            player.sendChatToPlayer(FormattedTranslator.GOLD.format("message.command.warp.usage", FormattedTranslator.AQUA.literal("/warp <add-remove-list-warpName>")));
+            player.sendChatToPlayer(Translator.GOLD.format("message.command.warp.usage", Translator.AQUA.literal("/warp <add-remove-list-warpName>")));
             return;
         }
 
@@ -44,7 +44,7 @@ public class CommandWarp extends VintageCommand {
         String subLow = sub.toLowerCase(Locale.ROOT);
         if ("add".equals(subLow)) {
             if (args.length < 2) {
-                player.sendChatToPlayer(FormattedTranslator.GOLD.format("message.command.warp.usage.add", FormattedTranslator.AQUA.literal("/warp add <name>")));
+                player.sendChatToPlayer(Translator.GOLD.format("message.command.warp.usage.add", Translator.AQUA.literal("/warp add <name>")));
                 return;
             }
             String warpName = args[1];
@@ -56,31 +56,31 @@ public class CommandWarp extends VintageCommand {
             };
             storage.warpsTag.setIntArray(warpName, data);
             storage.markDirty();
-            player.sendChatToPlayer(FormattedTranslator.GREEN.format("message.command.warp.success.add", FormattedTranslator.AQUA.literal(warpName)));
+            player.sendChatToPlayer(Translator.GREEN.format("message.command.warp.success.add", Translator.AQUA.literal(warpName)));
         } else if ("list".equals(subLow)) {
             Set<String> keys = VintageHomesWorldStorage.getWarpNames(storage.warpsTag);
             if (keys.isEmpty()) {
-                player.sendChatToPlayer(FormattedTranslator.RED.format("message.command.warp.list.none"));
+                player.sendChatToPlayer(Translator.RED.format("message.command.warp.list.none"));
             } else {
                 StringBuilder builder = new StringBuilder();
                 for (String key : keys) {
                     if (builder.length() > 0) builder.append(", ");
                     builder.append(key);
                 }
-                player.sendChatToPlayer(FormattedTranslator.GOLD.format("message.command.warp.list", FormattedTranslator.AQUA.literal(builder.toString())));
+                player.sendChatToPlayer(Translator.GOLD.format("message.command.warp.list", Translator.AQUA.literal(builder.toString())));
             }
         } else if ("remove".equals(subLow)) {
             if (args.length < 2) {
-                player.sendChatToPlayer(FormattedTranslator.GOLD.format("message.command.warp.usage.remove", FormattedTranslator.AQUA.literal("/warp remove <name>")));
+                player.sendChatToPlayer(Translator.GOLD.format("message.command.warp.usage.remove", Translator.AQUA.literal("/warp remove <name>")));
                 return;
             }
             String toRemove = args[1];
             if (storage.warpsTag.hasKey(toRemove)) {
                 storage.warpsTag.removeTag(toRemove);
                 storage.markDirty();
-                player.sendChatToPlayer(FormattedTranslator.GREEN.format("message.command.warp.success.remove", FormattedTranslator.AQUA.literal(toRemove)));
+                player.sendChatToPlayer(Translator.GREEN.format("message.command.warp.success.remove", Translator.AQUA.literal(toRemove)));
             } else {
-                player.sendChatToPlayer(FormattedTranslator.RED.format("message.command.warp.fail.remove", FormattedTranslator.AQUA.literal(toRemove)));
+                player.sendChatToPlayer(Translator.RED.format("message.command.warp.fail.remove", Translator.AQUA.literal(toRemove)));
             }
         } else {
             if (storage.warpsTag.hasKey(sub)) {
@@ -102,12 +102,12 @@ public class CommandWarp extends VintageCommand {
                     }
                     player.setPositionAndUpdate(xPos + 0.5, yPos, zPos + 0.5);
                     playerSP.setPositionAndUpdate(xPos + 0.5, yPos, zPos + 0.5);
-                    player.sendChatToPlayer(FormattedTranslator.GREEN.format("message.command.warp.success", FormattedTranslator.AQUA.literal(sub)));
+                    player.sendChatToPlayer(Translator.GREEN.format("message.command.warp.success", Translator.AQUA.literal(sub)));
                 } else {
-                    player.sendChatToPlayer(FormattedTranslator.RED.format("message.command.warp.fail"));
+                    player.sendChatToPlayer(Translator.RED.format("message.command.warp.fail"));
                 }
             } else {
-                player.sendChatToPlayer(FormattedTranslator.RED.format("message.command.warp.none", FormattedTranslator.AQUA.literal(sub)));
+                player.sendChatToPlayer(Translator.RED.format("message.command.warp.none", Translator.AQUA.literal(sub)));
             }
         }
     }

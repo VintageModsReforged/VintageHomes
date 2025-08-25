@@ -21,7 +21,7 @@ public class CommonTeleporter extends Teleporter {
     public CommonTeleporter(WorldServer worldIn, Type type, String destination, boolean doCoordCalc) {
         super(worldIn);
         this.type = type;
-        this.destination = "";
+        this.destination = destination;
         this.coordCalc = doCoordCalc;
     }
 

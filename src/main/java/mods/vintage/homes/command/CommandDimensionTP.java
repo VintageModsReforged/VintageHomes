@@ -1,6 +1,6 @@
 package mods.vintage.homes.command;
 
-import mods.vintage.core.platform.lang.FormattedTranslator;
+import mods.vintage.core.platform.lang.Translator;
 import mods.vintage.homes.utils.CommonTeleporter;
 import net.minecraft.block.Block;
 import net.minecraft.command.CommandException;
@@ -21,13 +21,13 @@ public class CommandDimensionTP extends VintageCommand {
 
     @Override
     public String getCommandUsage(ICommandSender iCommandSender) {
-        return FormattedTranslator.RED.format("message.command.tpd.usage", FormattedTranslator.AQUA.literal("/tpd"), FormattedTranslator.AQUA.literal("/tpd"));
+        return Translator.RED.format("message.command.tpd.usage", Translator.AQUA.literal("/tpd"), Translator.AQUA.literal("/tpd"));
     }
 
     @Override
     public void processCommand(ICommandSender sender, String[] args) {
         if (!(sender instanceof EntityPlayer)) {
-            sender.sendChatToPlayer(FormattedTranslator.RED.format("message.command.tpd.allowed"));
+            sender.sendChatToPlayer(Translator.RED.format("message.command.tpd.allowed"));
         }
 
         EntityPlayerMP player = (EntityPlayerMP) sender;
@@ -35,13 +35,13 @@ public class CommandDimensionTP extends VintageCommand {
         int currentDim = curWorld.provider.dimensionId;
 
         if (args.length == 0) {
-            sender.sendChatToPlayer(FormattedTranslator.WHITE.format("message.command.tpd.info1", FormattedTranslator.AQUA.literal("" + curWorld.provider.dimensionId)));
-            sender.sendChatToPlayer(FormattedTranslator.GOLD.format("message.command.tpd.info2", FormattedTranslator.AQUA.literal("/tpd")));
+            sender.sendChatToPlayer(Translator.WHITE.format("message.command.tpd.info1", Translator.AQUA.literal("" + curWorld.provider.dimensionId)));
+            sender.sendChatToPlayer(Translator.GOLD.format("message.command.tpd.info2", Translator.AQUA.literal("/tpd")));
             return;
         }
 
         if (args.length > 1) {
-            sender.sendChatToPlayer(FormattedTranslator.GOLD.format("message.command.tpd.warning", FormattedTranslator.AQUA.literal("/tpd")));
+            sender.sendChatToPlayer(Translator.GOLD.format("message.command.tpd.warning", Translator.AQUA.literal("/tpd")));
         }
 
         String arg = args[0];

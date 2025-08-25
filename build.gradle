@@ -41,5 +41,12 @@ dependencies {
 	forge "net.minecraftforge:forge:${forgeVersion}:universal@zip"
 	mappings "net.minecraftforge:forge:${forgeVersion}:src@zip"
 
-	modImplementation files("/libs/VintageCore-1.5.2-1.0.7-dev.jar")
+	modImplementation files("/libs/VintageCore-1.5.2-2.0.0-dev.jar")
+}
+
+processResources {
+	inputs.property 'version', version
+	filesMatching('mcmod.info') {
+		expand version: version
+	}
 }

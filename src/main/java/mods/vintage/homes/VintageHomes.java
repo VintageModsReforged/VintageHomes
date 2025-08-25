@@ -4,9 +4,8 @@ import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.event.FMLServerStartingEvent;
 import cpw.mods.fml.common.registry.GameRegistry;
 import mods.vintage.core.helpers.ConfigHelper;
-import mods.vintage.core.platform.lang.FormattedTranslator;
-import mods.vintage.core.platform.lang.ILangProvider;
-import mods.vintage.core.platform.lang.LangManager;
+import mods.vintage.core.platform.lang.LocalizationProvider;
+import mods.vintage.core.platform.lang.Translator;
 import mods.vintage.homes.command.*;
 import mods.vintage.homes.utils.PlayerTracker;
 import net.minecraft.entity.Entity;
@@ -17,13 +16,12 @@ import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.ForgeSubscribe;
 import net.minecraftforge.event.entity.living.LivingDeathEvent;
 
-import java.util.Arrays;
-import java.util.List;
-
+@LocalizationProvider
 @Mod(modid = References.ID, name = References.NAME, dependencies = References.DEPS, useMetadata = true)
-public class VintageHomes implements ILangProvider {
+public class VintageHomes {
 
     public static Configuration config;
+    @LocalizationProvider.List(modId = References.ID)
     public static String[] langs;
     public static int commandPermissionLevel;
 
@@ -34,7 +32,6 @@ public class VintageHomes implements ILangProvider {
         langs = ConfigHelper.getLocalizations(config, new String[]{"en_US", "ru_RU"}, References.ID);
         commandPermissionLevel = ConfigHelper.getInt(config, "general", "commandPermissionLevel", 0, 4, 0, "Minimum required permission level to use commands (0 = all players, 4 = server owner)");
         if (config.hasChanged()) config.save();
-        LangManager.THIS.registerLangProvider(this);
         MinecraftForge.EVENT_BUS.register(this);
     }
 
@@ -61,17 +58,7 @@ public class VintageHomes implements ILangProvider {
             VintageHomesWorldStorage storage = VintageHomesWorldStorage.get(MinecraftServer.getServer());
             storage.warpsTag.setIntArray(deathPointName, data);
             storage.markDirty();
-            player.sendChatToPlayer(FormattedTranslator.GREEN.format("message.command.warp.success.add", FormattedTranslator.AQUA.literal(deathPointName)));
+            player.sendChatToPlayer(Translator.GREEN.format("message.command.warp.success.add", Translator.AQUA.literal(deathPointName)));
         }
-    }
-
-    @Override
-    public String getModid() {
-        return References.ID;
-    }
-
-    @Override
-    public List<String> getLocalizationList() {
-        return Arrays.asList(langs);
     }
 }

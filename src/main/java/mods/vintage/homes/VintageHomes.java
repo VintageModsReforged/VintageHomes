@@ -17,7 +17,7 @@ import net.minecraftforge.event.ForgeSubscribe;
 import net.minecraftforge.event.entity.living.LivingDeathEvent;
 
 @LocalizationProvider
-@Mod(modid = References.ID, name = References.NAME, dependencies = References.DEPS, useMetadata = true)
+@Mod(modid = References.ID, useMetadata = true)
 public class VintageHomes {
 
     public static Configuration config;

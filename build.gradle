@@ -44,9 +44,18 @@ dependencies {
 	modImplementation files("/libs/VintageCore-1.5.2-2.0.0-dev.jar")
 }
 
+def props = ['modName', 'modid', 'modVersion', 'modDescription', 'modAuthors', 'modDeps', 'minecraft', 'url']
 processResources {
-	inputs.property 'version', version
-	filesMatching('mcmod.info') {
-		expand version: version
+	filesMatching("mcmod.info") {
+		expand(project.properties.subMap(props))
 	}
+}
+
+task sourcesJar(type: Jar) {
+	archiveClassifier.set("sources")
+	from sourceSets.main.allSource
+}
+
+artifacts {
+	archives sourcesJar
 }

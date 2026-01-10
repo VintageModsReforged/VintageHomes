@@ -5,6 +5,7 @@ import mods.vintage.homes.utils.CommonTeleporter;
 import net.minecraft.command.ICommandSender;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
+import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.world.WorldServer;
 
@@ -37,21 +38,22 @@ public class CommandHome extends VintageCommand {
             VintageHomesWorldStorage storage = VintageHomesWorldStorage.get(server);
             String playerName = playerSP.username;
 
-            int[] homeData = storage.homesTag.getIntArray(playerName);
-            if (homeData.length <= 0) {
+            NBTTagCompound playerHome = storage.homesTag.getCompoundTag(playerName);
+
+            if (playerHome == null) {
                 sender.sendChatToPlayer(Translator.RED.format("message.command.home.set.home"));
             } else {
-                int destDimId = homeData[0];
-                int xPos = homeData[1];
-                int yPos = homeData[2];
-                int zPos = homeData[3];
+                int destDimId = playerHome.getInteger("dim");
+                double xPos = playerHome.getDouble("posX");
+                double yPos = playerHome.getDouble("posY");
+                double zPos = playerHome.getDouble("posZ");
 
                 WorldServer destWorld = server.worldServerForDimension(destDimId);
                 if (!(destWorld == server.worldServerForDimension(dimID))) {
                     server.getConfigurationManager().transferPlayerToDimension(playerMP, destDimId, new CommonTeleporter(destWorld, CommonTeleporter.Type.HOME, true));
                 }
-                playerMP.setPositionAndUpdate(xPos + 0.5, yPos, zPos + 0.5);
-                playerSP.setPositionAndUpdate(xPos + 0.5, yPos, zPos + 0.5);
+                playerMP.setPositionAndUpdate(xPos, yPos, zPos);
+                playerSP.setPositionAndUpdate(xPos, yPos, zPos);
 
                 sender.sendChatToPlayer(Translator.GREEN.format("message.command.home.success"));
             }

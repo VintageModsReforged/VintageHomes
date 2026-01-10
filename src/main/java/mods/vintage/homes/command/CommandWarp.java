@@ -5,6 +5,7 @@ import mods.vintage.homes.utils.CommonTeleporter;
 import net.minecraft.command.ICommandSender;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
+import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.world.WorldServer;
 
@@ -48,13 +49,12 @@ public class CommandWarp extends VintageCommand {
                 return;
             }
             String warpName = args[1];
-            int[] data = {
-                    player.worldObj.provider.dimensionId,
-                    (int) player.posX,
-                    (int) player.posY,
-                    (int) player.posZ
-            };
-            storage.warpsTag.setIntArray(warpName, data);
+            NBTTagCompound warpSubtag = storage.warpsTag.getCompoundTag(warpName);
+            warpSubtag.setInteger("dim", player.worldObj.provider.dimensionId);
+            warpSubtag.setDouble("posX", player.posX);
+            warpSubtag.setDouble("posY", player.posY);
+            warpSubtag.setDouble("posZ", player.posZ);
+            storage.warpsTag.setTag(warpName, warpSubtag);
             storage.markDirty();
             player.sendChatToPlayer(Translator.GREEN.format("message.command.warp.success.add", Translator.AQUA.literal(warpName)));
         } else if ("list".equals(subLow)) {
@@ -84,24 +84,23 @@ public class CommandWarp extends VintageCommand {
             }
         } else {
             if (storage.warpsTag.hasKey(sub)) {
-
                 MinecraftServer server = MinecraftServer.getServer();
                 WorldServer world = (WorldServer) player.worldObj;
                 int dimID = world.provider.dimensionId;
                 EntityPlayer playerSP = player;
 
-                int[] pos = storage.warpsTag.getIntArray(sub);
-                if (pos.length == 4) {
-                    int dim = pos[0];
-                    int xPos = pos[1];
-                    int yPos = pos[2];
-                    int zPos = pos[3];
+                NBTTagCompound warpTag = storage.warpsTag.getCompoundTag(sub);
+                if (warpTag != null) {
+                    int dim = warpTag.getInteger("dim");
+                    double xPos = warpTag.getDouble("posX");
+                    double yPos = warpTag.getDouble("posY");
+                    double zPos = warpTag.getDouble("posZ");
                     WorldServer destWorld = server.worldServerForDimension(dim);
                     if (!(destWorld == server.worldServerForDimension(dimID))) {
                         server.getConfigurationManager().transferPlayerToDimension(player, dim, new CommonTeleporter(destWorld, CommonTeleporter.Type.WARP, sub, true));
                     }
-                    player.setPositionAndUpdate(xPos + 0.5, yPos, zPos + 0.5);
-                    playerSP.setPositionAndUpdate(xPos + 0.5, yPos, zPos + 0.5);
+                    player.setPositionAndUpdate(xPos, yPos, zPos);
+                    playerSP.setPositionAndUpdate(xPos, yPos, zPos);
                     player.sendChatToPlayer(Translator.GREEN.format("message.command.warp.success", Translator.AQUA.literal(sub)));
                 } else {
                     player.sendChatToPlayer(Translator.RED.format("message.command.warp.fail"));

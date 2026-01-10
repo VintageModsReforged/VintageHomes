@@ -10,6 +10,7 @@ import mods.vintage.homes.command.*;
 import mods.vintage.homes.utils.PlayerTracker;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.server.MinecraftServer;
 import net.minecraftforge.common.Configuration;
 import net.minecraftforge.common.MinecraftForge;
@@ -48,15 +49,14 @@ public class VintageHomes {
         Entity entity = e.entity;
         if (entity instanceof EntityPlayer) {
             EntityPlayer player = (EntityPlayer) entity;
-            int[] data = {
-                    player.worldObj.provider.dimensionId,
-                    (int) player.posX,
-                    (int) player.posY,
-                    (int) player.posZ
-            };
-            String deathPointName = player.username + "_deathPoint";
             VintageHomesWorldStorage storage = VintageHomesWorldStorage.get(MinecraftServer.getServer());
-            storage.warpsTag.setIntArray(deathPointName, data);
+            String deathPointName = player.username + "_deathPoint";
+            NBTTagCompound deathTag = storage.warpsTag.getCompoundTag(deathPointName);
+            deathTag.setInteger("dim", player.worldObj.provider.dimensionId);
+            deathTag.setDouble("posX", player.posX);
+            deathTag.setDouble("posY", player.posY);
+            deathTag.setDouble("posZ", player.posZ);
+            storage.warpsTag.setTag(deathPointName, deathTag);
             storage.markDirty();
             player.sendChatToPlayer(Translator.GREEN.format("message.command.warp.success.add", Translator.AQUA.literal(deathPointName)));
         }

@@ -5,23 +5,14 @@ buildscript {
 		maven { url "https://repo.sleeping.town" } //Commented out to use the version of voldeloom in the settings.gradle includeBuild (hopefully??)
 	}
 	dependencies {
-		classpath "agency.highlysuspect:voldeloom:2.4-SNAPSHOT"
+		classpath "agency.highlysuspect:voldeloom:2.2-SNAPSHOT"
 	}
 }
 
 apply plugin: "agency.highlysuspect.voldeloom"
 
-java {
-	toolchain {
-		//Last version able to set a --release as low as 6.
-		languageVersion = JavaLanguageVersion.of(11)
-	}
-}
-
-compileJava {
-	//Forge doesn't understand classes compiled to versions of the class-file format newer than Java 6's.
-	options.release.set(6)
-}
+java.toolchain.languageVersion = JavaLanguageVersion.of(11) //Last version able to set a --release as low as 6
+compileJava.options.release.set(6) //Forge doesn't understand classes compiled to versions of the class-file format newer than Java 6's
 
 String minecraftVersion = project.minecraft
 String forgeVersion = project.minecraft_forge
@@ -29,6 +20,10 @@ archivesBaseName = project.modid
 version = project.modVersion
 
 volde {
+	forgeCapabilities {
+		srgsAsFallback = true
+	}
+	
 	runs {
 		client {
 			programArg "quaternary"
@@ -39,9 +34,20 @@ volde {
 dependencies {
 	minecraft "com.mojang:minecraft:${minecraftVersion}"
 	forge "net.minecraftforge:forge:${forgeVersion}:universal@zip"
-	mappings "net.minecraftforge:forge:${forgeVersion}:src@zip"
+	
+	mappings volde.layered {
+		baseZip "net.minecraftforge:forge:${forgeVersion}:src@zip"
+		unmapClass(["bar", "bas"])
+	}
 
-	modImplementation files("/libs/VintageCore-1.5.2-2.0.0-dev.jar")
+	modImplementation files("libs/VintageCore-1.4.7-2.0.2-dev.jar")
+
+	//accessTransformers files("./src/main/resources/good_cool_ats.cfg")
+	
+	//coremodImplementation files("libs/name.jar")
+	//coremodImplementation files("libs/name.zip")
+	//modImplementation files("libs/name.jar")
+	//modImplementation files("libs/name.zip")
 }
 
 def props = ['modName', 'modid', 'modVersion', 'modDescription', 'modAuthors', 'modDeps', 'minecraft', 'url']

@@ -32,7 +32,7 @@ public class VintageHomes {
         config.load();
         langs = ConfigHelper.getLocalizations(config, new String[]{"en_US", "ru_RU"}, References.ID);
         commandPermissionLevel = ConfigHelper.getInt(config, "general", "commandPermissionLevel", 0, 4, 0, "Minimum required permission level to use commands (0 = all players, 4 = server owner)");
-        if (config.hasChanged()) config.save();
+        config.save();
         MinecraftForge.EVENT_BUS.register(this);
     }
 
